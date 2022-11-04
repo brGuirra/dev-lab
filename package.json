@@ -5,7 +5,9 @@
   "author": "brGuirra <br.guirra@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint . --ext .ts --fix"
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/index.ts",
+    "lint": "eslint ./src ./test --ext .ts",
+    "lint:fix": "eslint ./src ./test --ext .ts --fix"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
