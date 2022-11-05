@@ -1,8 +1,8 @@
 import type { JestConfigWithTsJest } from 'ts-jest';
-import { defaults } from 'jest-config';
+import config from './jest.config';
 
 const end2endConfig: JestConfigWithTsJest = {
-  ...defaults,
+  ...config,
   displayName: 'end2end-tests',
   setupFilesAfterEnv: ['<rootDir>/__tests__/jest-setup.ts'],
   testMatch: ['<rootDir>/__tests__/**/*.test.ts'],

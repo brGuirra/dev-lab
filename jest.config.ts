@@ -5,10 +5,10 @@ const root = resolve(__dirname);
 const config: JestConfigWithTsJest = {
   rootDir: root,
   displayName: 'root-tests',
-  moduleDirectories: ['node_modules', 'src'],
   testEnvironment: 'node',
   clearMocks: true,
   preset: 'ts-jest',
+  moduleDirectories: ['node_modules', 'src'],
 };
 
 export default config;
