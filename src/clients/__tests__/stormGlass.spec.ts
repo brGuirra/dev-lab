@@ -13,6 +13,8 @@ describe('StormGlass Client', () => {
     const stormGlassClient = new StormGlassClient(axios);
 
     axios.get = jest.fn().mockReturnValue({});
+    console.log('teste');
+
     const response = await stormGlassClient.fetchPoints(coodirnates);
 
     expect(response).toEqual({});
