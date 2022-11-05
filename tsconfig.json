@@ -17,15 +17,12 @@
     "noImplicitReturns": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "paths": {
-      "@src/*": ["./src/*"],
-      "@test/*": ["./test/*"]
-    },
-    "rootDirs": ["./src", "./test"],
+    "rootDir": ".",
+    "baseUrl": "src",
+    "rootDirs": ["src", "__tests__"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["./src/**/*.ts", "./test/**/*.ts"],
-  "exclude": ["./node_modules/*", "dist"]
+  "include": ["src", "__tests__", "jest-end2end.config.ts"],
+  "exclude": ["node_modules", "dist"]
 }
