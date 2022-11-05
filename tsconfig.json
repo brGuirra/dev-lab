@@ -23,6 +23,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src", "__tests__", "jest-end2end.config.ts"],
+  "include": ["src", "__tests__"],
   "exclude": ["node_modules", "dist"]
 }

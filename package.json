@@ -7,8 +7,8 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/index.ts",
-    "lint": "eslint ./src ./test --ext .ts",
-    "lint:fix": "eslint ./src ./test --ext .ts --fix",
+    "lint": "eslint --ext .ts",
+    "lint:fix": "eslint --ext .ts --fix",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:functional": "yarn test --watch -c ./jest-end2end.config.ts",
     "test:unit": "yarn test --watch -c ./jest-unit.config.ts",
