@@ -38,11 +38,15 @@ export class StormGlassClient {
   constructor(protected request: AxiosStatic) {}
 
   public async fetchPoints({ lat, lng }: { lat: number; lng: number }): Promise<ForecastPoint[]> {
-    const response = await this.request.get<StormGlassForecastResponse>(
-      `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}&source=${this.stormGlassAPISource}&end=`
-    );
+    try {
+      const response = await this.request.get<StormGlassForecastResponse>(
+        `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}&source=${this.stormGlassAPISource}&end=`
+      );
 
-    return this.normalizeResponse(response.data);
+      return this.normalizeResponse(response.data);
+    } catch (error: any) {
+      throw new Error('Unexpected when trying to communicate to Storm Glass Client: Network Error');
+    }
   }
 
   private normalizeResponse(points: StormGlassForecastResponse): ForecastPoint[] {
