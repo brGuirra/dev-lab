@@ -1,4 +1,5 @@
-import type { AxiosStatic } from 'axios';
+import type { AxiosError, AxiosStatic } from 'axios';
+
 import { InternalError } from '@src/utils/errors/internal-error';
 
 export type StormGlassPointSource = {
@@ -38,6 +39,15 @@ export class ClientRequestError extends InternalError {
     super(`${internalMessage}: ${message}`);
   }
 }
+
+export class StormGlassResponseError extends InternalError {
+  constructor(message: string) {
+    const internalMessage = 'Unexpected error returned by the StormGlass service';
+
+    super(`${internalMessage}: ${message}`);
+  }
+}
+
 export class StormGlassClient {
   private readonly stormGlassAPIParams =
     'swellDirection, swellHeight, swellPeriod, waveDirection,waveHeight, windDirection, windSpeed';
@@ -53,8 +63,16 @@ export class StormGlassClient {
       );
 
       return this.normalizeResponse(response.data);
-    } catch (error: any) {
-      throw new ClientRequestError(error.message);
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError;
+
+      if (axiosError instanceof Error && axiosError.response && axiosError.response.status) {
+        throw new StormGlassResponseError(
+          `Error: ${JSON.stringify(axiosError.response.data)} Code: ${axiosError.response.status}`
+        );
+      }
+
+      throw new ClientRequestError((error as { message: any }).message);
     }
   }
 
