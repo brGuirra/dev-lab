@@ -1,5 +1,5 @@
 import type { Application } from 'express';
-import { ForecastController } from 'controllers/forecast';
+import { ForecastController } from '@src/controllers/forecast';
 import { Server } from '@overnightjs/core';
 import express from 'express';
 

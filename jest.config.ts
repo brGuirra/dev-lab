@@ -10,6 +10,10 @@ const config: JestConfigWithTsJest = {
   moduleDirectories: ['node_modules', 'src'],
   setupFilesAfterEnv: ['<rootDir>/__tests__/jest-setup.ts'],
   testMatch: ['<rootDir>/__tests__/**/*.test.ts', '<rootDir>/src/**/*.spec.ts'],
+  moduleNameMapper: {
+    '@src/(.*)': '<rootDir>/src/$1',
+    '@tests/(.*)': '<rootDir>/__tests__/$1',
+  },
 };
 
 export default config;
