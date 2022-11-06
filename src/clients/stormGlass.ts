@@ -1,4 +1,5 @@
 import type { AxiosStatic } from 'axios';
+import { InternalError } from '@src/utils/errors/internal-error';
 
 export type StormGlassPointSource = {
   [key: string]: number;
@@ -29,6 +30,14 @@ export type ForecastPoint = {
   windDirection: number;
   windSpeed: number;
 };
+
+export class ClientRequestError extends InternalError {
+  constructor(message: string) {
+    const internalMessage = 'Unexpected when trying to communicate to Storm Glass Client';
+
+    super(`${internalMessage}: ${message}`);
+  }
+}
 export class StormGlassClient {
   private readonly stormGlassAPIParams =
     'swellDirection, swellHeight, swellPeriod, waveDirection,waveHeight, windDirection, windSpeed';
@@ -45,7 +54,7 @@ export class StormGlassClient {
 
       return this.normalizeResponse(response.data);
     } catch (error: any) {
-      throw new Error('Unexpected when trying to communicate to Storm Glass Client: Network Error');
+      throw new ClientRequestError(error.message);
     }
   }
 

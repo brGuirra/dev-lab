@@ -53,7 +53,7 @@ describe('StormGlass Client', () => {
 
     const stormGlassClient = new StormGlassClient(mockedAxios);
 
-    mockedAxios.get.mockResolvedValue({ message: 'Network Error' });
+    mockedAxios.get.mockRejectedValue({ message: 'Network Error' });
 
     await expect(stormGlassClient.fetchPoints(coodirnates)).rejects.toThrow(
       'Unexpected when trying to communicate to Storm Glass Client: Network Error'
