@@ -1,4 +1,4 @@
-import { BeachPosition, ForecastService } from '../forecast.service';
+import { BeachPosition, ForecastProcessingInternalError, ForecastService } from '../forecast.service';
 
 import type { Beach } from '../forecast.service';
 import { StormGlassClient } from '@src/clients/stormGlass';
@@ -97,5 +97,23 @@ describe('Forecast Service', () => {
     const response = await forecast.processForecastForBeaches([]);
 
     expect(response).toEqual([]);
+  });
+
+  it('should throw an internal processing error when an error is thrown by storm glass client', async () => {
+    const beaches: Beach[] = [
+      {
+        lat: Number(faker.address.latitude()),
+        lng: Number(faker.address.longitude()),
+        name: faker.address.cityName(),
+        position: BeachPosition.E,
+        user: faker.database.mongodbObjectId(),
+      },
+    ];
+
+    mockedStormGlassClient.fetchPoints.mockRejectedValue('Error fetching data');
+
+    const forecast = new ForecastService(mockedStormGlassClient);
+
+    await expect(forecast.processForecastForBeaches(beaches)).rejects.toThrow(ForecastProcessingInternalError);
   });
 });
