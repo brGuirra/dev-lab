@@ -43,19 +43,12 @@ export class ForecastService {
 
     try {
       for (const beach of beaches) {
-        const { lat, lng, name, position } = beach;
+        const { lat, lng } = beach;
         const points = await this.stormGlassClient.fetchPoints({
           lat,
           lng,
         });
-        const enrichedBeachData: BeachForecast[] = points.map((point) => ({
-          lat,
-          lng,
-          name,
-          position,
-          rating: 1,
-          ...point,
-        }));
+        const enrichedBeachData: BeachForecast[] = this.enricheBeachData(points, beach);
 
         pointsWithCorrectSources.push(...enrichedBeachData);
       }
@@ -88,5 +81,18 @@ export class ForecastService {
     }
 
     return forecastByTime;
+  }
+
+  private enricheBeachData(points: ForecastPoint[], beach: Beach): BeachForecast[] {
+    const { lat, lng, name, position } = beach;
+
+    return points.map((point) => ({
+      lat,
+      lng,
+      name,
+      position,
+      rating: 1,
+      ...point,
+    }));
   }
 }
