@@ -21,10 +21,15 @@ export type BeachForecast = ForecastPoint &
     rating: number;
   };
 
+export type ForecastByTime = {
+  time: string;
+  forecast: BeachForecast[];
+};
+
 export class ForecastService {
   constructor(protected stormGlassClient: StormGlassClient = new StormGlassClient()) {}
 
-  public async processForecastForBeaches(beaches: Beach[]): Promise<BeachForecast[]> {
+  public async processForecastForBeaches(beaches: Beach[]): Promise<ForecastByTime[]> {
     const pointsWithCorrectSources: BeachForecast[] = [];
 
     for (const beach of beaches) {
@@ -45,6 +50,26 @@ export class ForecastService {
       pointsWithCorrectSources.push(...enrichedBeachData);
     }
 
-    return pointsWithCorrectSources;
+    return this.mapForecastByTime(pointsWithCorrectSources);
+  }
+
+  private mapForecastByTime(forecast: BeachForecast[]): ForecastByTime[] {
+    const forecastByTime: ForecastByTime[] = [];
+
+    for (const point of forecast) {
+      const timePoint = forecastByTime.find((p) => p.time === point.time);
+
+      if (timePoint) {
+        timePoint.forecast.push(point);
+        continue;
+      }
+
+      forecastByTime.push({
+        time: point.time,
+        forecast: [point],
+      });
+    }
+
+    return forecastByTime;
   }
 }
