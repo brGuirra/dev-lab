@@ -1,6 +1,7 @@
-import { BeachPosition, ForecastProcessingInternalError, ForecastService } from '../forecast.service';
+import { ForecastProcessingInternalError, ForecastService } from '../forecast.service';
 
-import type { Beach } from '../forecast.service';
+import type { Beach } from '@src/models/beach';
+import { BeachPosition } from '@src/models/beach';
 import { StormGlassClient } from '@src/clients/stormGlass';
 import { faker } from '@faker-js/faker';
 import stormGlassNormalizedResponseFixture from '@tests/fixtures/stormglass_normalized_response_3_hours.json';
@@ -19,7 +20,6 @@ describe('Forecast Service', () => {
         lng: Number(faker.address.longitude()),
         name: faker.address.cityName(),
         position: BeachPosition.E,
-        user: faker.database.mongodbObjectId(),
       },
     ];
 
@@ -106,7 +106,6 @@ describe('Forecast Service', () => {
         lng: Number(faker.address.longitude()),
         name: faker.address.cityName(),
         position: BeachPosition.E,
-        user: faker.database.mongodbObjectId(),
       },
     ];
 

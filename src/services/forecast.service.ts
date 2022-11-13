@@ -1,21 +1,7 @@
+import type { Beach } from '@src/models/beach';
 import type { ForecastPoint } from '@src/clients/stormGlass';
 import { InternalError } from '@src/utils/errors/internal-error';
 import { StormGlassClient } from '@src/clients/stormGlass';
-
-export enum BeachPosition {
-  S = 'S',
-  E = 'E',
-  W = 'W',
-  N = 'N',
-}
-
-export type Beach = {
-  name: string;
-  position: BeachPosition;
-  lat: number;
-  lng: number;
-  user: string;
-};
 
 export type BeachForecast = ForecastPoint &
   Omit<Beach, 'user'> & {

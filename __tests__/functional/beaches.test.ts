@@ -1,8 +1,10 @@
-import { BeachPosition } from '@src/services/forecast.service';
+import { Beach, BeachPosition } from '@src/models/beach';
+
 import { faker } from '@faker-js/faker';
 
 describe('Beaches functional tests', () => {
-  it('Should be able to create a beach', async () => {
+  beforeAll(async () => await Beach.deleteMany({}));
+  it('should be able to create a beach', async () => {
     const beach = {
       lat: Number(faker.address.latitude()),
       lng: Number(faker.address.longitude()),
