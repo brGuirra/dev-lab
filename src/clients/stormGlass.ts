@@ -54,7 +54,7 @@ const stormGlasResourceConfig: IConfig = config.get('App.resources.StormGlass');
 
 export class StormGlassClient {
   private readonly stormGlassAPIParams =
-    'swellDirection, swellHeight, swellPeriod, waveDirection,waveHeight, windDirection, windSpeed';
+    'swellDirection,swellHeight,swellPeriod,waveDirection,waveHeight,windDirection,windSpeed';
 
   private readonly stormGlassAPISource = 'noaa';
 
