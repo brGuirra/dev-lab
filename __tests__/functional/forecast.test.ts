@@ -50,7 +50,7 @@ describe('Beach forecast functional tests', () => {
       },
     })
       .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
-      .get('/v1/weather/point')
+      .get('/v2/weather/point')
       .query({ lat: '-33.792726', lng: '151.289824' })
       .replyWithError('Something went wrong');
 

@@ -1,11 +1,12 @@
 {
   "App": {
+    "port": 3000,
     "database": {
       "mongoUrl": "mongodb://localhost:27017"
     },
     "resources": {
       "StormGlass": {
-        "apiUrl": "https://api.stormglass.io/v2",
+        "apiUrl": "https://api.stormglass.io",
         "apiToken": ""
       }
     }
